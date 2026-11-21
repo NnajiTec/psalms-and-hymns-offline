@@ -125,7 +125,7 @@ export const LibraryView: React.FC<LibraryViewProps> = ({
 
   return (
     <div className="flex-1 h-full min-h-0 overflow-y-auto pb-36 pt-2 scroll-smooth app-bg touch-pan-y overscroll-contain">
-      <div className="max-w-4xl mx-auto px-4 py-4">
+      <div className="max-w-xl md:max-w-4xl lg:max-w-6xl xl:max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {/* Module Header */}
         <div className="mb-4">
           <div className="flex items-center justify-between mb-2">

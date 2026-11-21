@@ -289,7 +289,7 @@ export const HymnViewer: React.FC<HymnViewerProps> = ({
       className="flex-1 w-full min-h-0 overflow-y-auto pt-3 sm:pt-5 relative scroll-smooth app-bg select-none hymn-lyrics-protected"
       style={{ WebkitOverflowScrolling: 'touch', userSelect: 'none', WebkitUserSelect: 'none' }}
     >
-      <div className="max-w-xl mx-auto px-6 sm:px-10 animate-fade-in">
+      <div className="max-w-xl md:max-w-3xl lg:max-w-4xl mx-auto px-4 sm:px-8 lg:px-12 animate-fade-in">
         {/* STATELY SACRED HYMN TITLE SECTION (Unboxed, Authentic Printed Hymnal Style) */}
         <div className="pt-2 pb-6 px-2 text-center select-none">
           {/* Subtle Liturgical Category & Verse Count */}

@@ -23,7 +23,7 @@ export const IndexView: React.FC<IndexViewProps> = ({ onSelectHymn }) => {
       style={{ WebkitOverflowScrolling: 'touch' }}
     >
       {/* Alphabet Quick Scroller Bar */}
-      <div className="sticky top-0 z-20 px-3 sm:px-6 py-2.5 bg-[var(--bg-app)]/95 backdrop-blur-md border-b border-[var(--border-color)] flex items-center gap-1.5 overflow-x-auto scrollbar-none select-none">
+      <div className="sticky top-0 z-20 px-3 sm:px-6 py-2.5 bg-[var(--bg-app)]/95 backdrop-blur-md border-b border-[var(--border-color)] flex items-center justify-start md:justify-center gap-1.5 overflow-x-auto scrollbar-none select-none">
         {groups.map((g) => (
           <button
             key={g.letter}
@@ -38,7 +38,7 @@ export const IndexView: React.FC<IndexViewProps> = ({ onSelectHymn }) => {
       </div>
 
       {/* Index Content */}
-      <div className="max-w-2xl mx-auto px-4 sm:px-6 py-4">
+      <div className="max-w-xl md:max-w-4xl lg:max-w-6xl xl:max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {groups.map((group) => (
           <div
             key={group.letter}
@@ -46,7 +46,7 @@ export const IndexView: React.FC<IndexViewProps> = ({ onSelectHymn }) => {
             className="mb-6 scroll-mt-16"
           >
             {/* Letter Header */}
-            <div className="sticky top-12 z-10 py-2 px-3 bg-[var(--bg-surface-alt)]/90 backdrop-blur-sm rounded-xl flex items-baseline justify-between mb-2 border border-[var(--border-color)]/70">
+            <div className="sticky top-12 z-10 py-2 px-3 bg-[var(--bg-surface-alt)]/90 backdrop-blur-sm rounded-xl flex items-baseline justify-between mb-2.5 border border-[var(--border-color)]/70">
               <span className="font-serif font-bold text-lg text-gold">
                 {group.letter}
               </span>
@@ -55,13 +55,13 @@ export const IndexView: React.FC<IndexViewProps> = ({ onSelectHymn }) => {
               </span>
             </div>
 
-            {/* Hymns under letter */}
-            <div className="divide-y divide-[var(--border-color)] bg-[var(--bg-surface)] rounded-2xl border border-[var(--border-color)] overflow-hidden shadow-xs">
+            {/* Hymns under letter: responsive 2-col grid on tablets/desktops */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
               {group.hymns.map((hymn) => (
                 <div
                   key={hymn.number}
                   onClick={() => onSelectHymn(hymn)}
-                  className="group flex items-baseline justify-between py-3 px-3.5 sm:px-4 hover:bg-[var(--bg-surface-alt)]/60 transition-colors cursor-pointer"
+                  className="group flex items-center justify-between py-2.5 px-3.5 sm:px-4 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-color)] hover:border-[var(--accent)] hover:shadow-xs transition-all cursor-pointer"
                 >
                   <span className="text-sm sm:text-base font-serif text-main truncate group-hover:text-gold transition-colors mr-3">
                     {hymn.firstLine}

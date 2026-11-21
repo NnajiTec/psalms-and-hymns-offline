@@ -71,7 +71,7 @@ export const BrowseView: React.FC<BrowseViewProps> = ({
         paddingTop: 'max(env(safe-area-inset-top, 24px), 24px)',
       }}
     >
-      <div className="max-w-xl mx-auto px-6 sm:px-10 py-4 space-y-4">
+      <div className="max-w-xl md:max-w-4xl lg:max-w-6xl xl:max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 space-y-4">
         {/* Sticky Header with Search Bar and Section Chips */}
         <div className="sticky top-0 z-20 pb-3 pt-1 bg-[var(--bg-app)]/95 backdrop-blur-md">
           {onBackToHome && (
@@ -191,15 +191,15 @@ export const BrowseView: React.FC<BrowseViewProps> = ({
           )}
         </div>
 
-        {/* Premium Hymn List */}
-        <div className="divide-y divide-[var(--border-color)] border-y border-[var(--border-color)] bg-[var(--bg-surface)] rounded-2xl overflow-hidden shadow-sm">
-          {filteredHymns.length === 0 ? (
-            <div className="py-20 text-center text-dim text-sm px-4">
-              <p className="font-serif text-base text-main mb-1">No hymns found</p>
-              <p className="text-xs">No match for "{searchQuery}". Try a different title, number, or keyword.</p>
-            </div>
-          ) : (
-            filteredHymns.map((hymn) => {
+        {/* Hymn List: Responsive 2-column grid on wider screens, single column on mobile */}
+        {filteredHymns.length === 0 ? (
+          <div className="py-20 text-center text-dim text-sm px-4 bg-[var(--bg-surface)] rounded-2xl border border-[var(--border-color)]">
+            <p className="font-serif text-base text-main mb-1">No hymns found</p>
+            <p className="text-xs">No match for "{searchQuery}". Try a different title, number, or keyword.</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 sm:gap-3">
+            {filteredHymns.map((hymn) => {
               const isFav = favorites.includes(hymn.number);
               const parsed = parseMeterAndTune(hymn.meter);
 
@@ -207,21 +207,21 @@ export const BrowseView: React.FC<BrowseViewProps> = ({
                 <div
                   key={hymn.number}
                   onClick={() => onSelectHymn(hymn)}
-                  className={`group flex items-center justify-between py-3.5 px-3 sm:px-4 hover:bg-[var(--bg-surface-alt)]/60 transition-colors cursor-pointer ${
-                    isFav ? 'bg-[var(--accent-bg)]/30' : ''
+                  className={`group flex items-center justify-between py-3 px-3.5 sm:px-4 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-color)] hover:border-[var(--accent)] hover:shadow-xs transition-all cursor-pointer ${
+                    isFav ? 'bg-[var(--accent-bg)]/30 border-[var(--accent)]/40' : ''
                   }`}
                 >
-                  <div className="flex items-baseline gap-3.5 sm:gap-4 min-w-0 pr-2">
-                    {/* Hymn Number in Warm Bronze */}
-                    <span className="font-mono text-sm sm:text-base font-bold text-gold w-9 sm:w-10 shrink-0 text-right">
-                      {hymn.number}
-                      {hymn.sign && <span className="text-xs font-black ml-0.5 text-amber-500">{hymn.sign}</span>}
-                    </span>
+                  <div className="flex items-center gap-3.5 min-w-0 pr-2">
+                    {/* Hymn Number Badge */}
+                    <div className="w-10 h-10 rounded-xl bg-[var(--accent)] text-white text-center flex flex-col items-center justify-center shrink-0 shadow-xs font-mono font-bold text-xs">
+                      <span>{hymn.number}</span>
+                      {hymn.sign && <span className="text-[9px] text-amber-200 leading-none">{hymn.sign}</span>}
+                    </div>
 
                     {/* Hymn Title & Metadata */}
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-1.5 truncate">
-                        <h3 className="text-base sm:text-lg font-serif font-medium text-main leading-snug truncate group-hover:text-gold transition-colors">
+                        <h3 className="text-sm sm:text-base font-serif font-medium text-main leading-snug truncate group-hover:text-[var(--accent)] transition-colors">
                           {hymn.title}
                         </h3>
                         {hymn.sign && (
@@ -230,9 +230,9 @@ export const BrowseView: React.FC<BrowseViewProps> = ({
                           </span>
                         )}
                       </div>
-                      <div className="flex items-center gap-1.5 text-xs text-dim mt-1 truncate font-sans">
+                      <div className="flex items-center gap-1.5 text-xs text-dim mt-0.5 truncate font-sans">
                         {parsed.tune && (
-                          <span className="text-gold font-medium truncate flex items-center gap-1">
+                          <span className="text-[var(--accent)] font-medium truncate flex items-center gap-1">
                             <Music size={11} className="shrink-0" />
                             <span>{parsed.tune}</span>
                           </span>
@@ -256,7 +256,7 @@ export const BrowseView: React.FC<BrowseViewProps> = ({
                     }}
                     className={`p-2 rounded-xl transition-all cursor-pointer shrink-0 ${
                       isFav
-                        ? 'text-gold'
+                        ? 'text-[var(--accent)]'
                         : 'text-dim/40 hover:text-dim hover:bg-[var(--bg-surface-alt)]'
                     }`}
                     title={isFav ? 'Remove from Saved' : 'Save Hymn'}
@@ -270,9 +270,9 @@ export const BrowseView: React.FC<BrowseViewProps> = ({
                   </button>
                 </div>
               );
-            })
-          )}
-        </div>
+            })}
+          </div>
+        )}
       </div>
     </div>
   );

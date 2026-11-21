@@ -896,7 +896,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
           paddingTop: 'max(env(safe-area-inset-top, 24px), 24px)',
         }}
       >
-        <div className="max-w-xl mx-auto px-6 sm:px-10 h-14 sm:h-16 flex items-center justify-between">
+        <div className="max-w-xl md:max-w-4xl lg:max-w-6xl xl:max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between">
           <button
             type="button"
             onClick={onBack}
@@ -918,172 +918,180 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
       {/* =======================================================================
           MAIN SETTINGS BODY: Generous, comfortable side padding & 8px grid
           ======================================================================= */}
-      <main className="max-w-xl mx-auto px-6 sm:px-10 py-7 space-y-7 pb-52">
-        
-        {/* CARD 1: Typography & Reading Layout */}
-        <SettingCard>
-          <SettingSectionHeader
-            id="heading-typography"
-            icon={<Type size={20} />}
-            title="Typography &amp; Layout"
-            description="Customize font style, size, and stanza line spacing"
-          />
+      <main className="max-w-xl md:max-w-4xl lg:max-w-6xl xl:max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-7 pb-36">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-start">
+          
+          {/* COLUMN 1: Reading Preferences & Theme */}
+          <div className="space-y-6">
+            {/* CARD 1: Typography & Reading Layout */}
+            <SettingCard>
+              <SettingSectionHeader
+                id="heading-typography"
+                icon={<Type size={20} />}
+                title="Typography &amp; Layout"
+                description="Customize font style, size, and stanza line spacing"
+              />
 
-          {/* 1.1 Font Family Selection */}
-          <FontFamilySelector
-            selected={settings.fontFamily}
-            onChange={(fontFamily) => onUpdateSettings({ fontFamily })}
-          />
+              {/* 1.1 Font Family Selection */}
+              <FontFamilySelector
+                selected={settings.fontFamily}
+                onChange={(fontFamily) => onUpdateSettings({ fontFamily })}
+              />
 
-          <div className="border-t border-[var(--border-color)]/60 my-2" aria-hidden="true" />
+              <div className="border-t border-[var(--border-color)]/60 my-2" aria-hidden="true" />
 
-          {/* 1.2 Font Size Slider */}
-          <FontSizeSlider
-            currentSize={settings.fontSize}
-            onChange={(fontSize) => onUpdateSettings({ fontSize })}
-          />
+              {/* 1.2 Font Size Slider */}
+              <FontSizeSlider
+                currentSize={settings.fontSize}
+                onChange={(fontSize) => onUpdateSettings({ fontSize })}
+              />
 
-          <div className="border-t border-[var(--border-color)]/60 my-2" aria-hidden="true" />
+              <div className="border-t border-[var(--border-color)]/60 my-2" aria-hidden="true" />
 
-          {/* 1.3 Line Spacing Segmented Control */}
-          <SegmentedControl<LineHeight>
-            labelId="label-line-spacing"
-            label="Line Spacing"
-            options={lineSpacingOptions}
-            selected={settings.lineHeight}
-            onChange={(lineHeight) => onUpdateSettings({ lineHeight })}
-          />
+              {/* 1.3 Line Spacing Segmented Control */}
+              <SegmentedControl<LineHeight>
+                labelId="label-line-spacing"
+                label="Line Spacing"
+                options={lineSpacingOptions}
+                selected={settings.lineHeight}
+                onChange={(lineHeight) => onUpdateSettings({ lineHeight })}
+              />
 
-          <div className="border-t border-[var(--border-color)]/60 my-2" aria-hidden="true" />
+              <div className="border-t border-[var(--border-color)]/60 my-2" aria-hidden="true" />
 
-          {/* 1.4 Text Alignment Segmented Control */}
-          <SegmentedControl<TextAlign>
-            labelId="label-text-alignment"
-            label="Text Alignment"
-            options={alignmentOptions}
-            selected={settings.textAlign}
-            onChange={(textAlign) => onUpdateSettings({ textAlign })}
-          />
-        </SettingCard>
+              {/* 1.4 Text Alignment Segmented Control */}
+              <SegmentedControl<TextAlign>
+                labelId="label-text-alignment"
+                label="Text Alignment"
+                options={alignmentOptions}
+                selected={settings.textAlign}
+                onChange={(textAlign) => onUpdateSettings({ textAlign })}
+              />
+            </SettingCard>
 
-        {/* CARD 2: Sacred Theme Selection */}
-        <SettingCard>
-          <SettingSectionHeader
-            id="heading-theme"
-            icon={<Palette size={20} />}
-            title="Reading Theme"
-            description="Sacred color palettes optimized for daylight and quiet sanctuaries"
-          />
+            {/* CARD 2: Sacred Theme Selection */}
+            <SettingCard>
+              <SettingSectionHeader
+                id="heading-theme"
+                icon={<Palette size={20} />}
+                title="Reading Theme"
+                description="Sacred color palettes optimized for daylight and quiet sanctuaries"
+              />
 
-          <ThemeSelector
-            currentTheme={settings.theme}
-            onSelectTheme={(theme) => onUpdateSettings({ theme })}
-          />
-        </SettingCard>
-
-        {/* CARD 3: Audio & Device Controls */}
-        <SettingCard className="divide-y divide-[var(--border-color)] space-y-0">
-          <SettingSectionHeader
-            id="heading-device"
-            icon={<Volume2 size={20} />}
-            title="Audio &amp; Display"
-            description="Pitch pipe tuning and screen illumination behavior"
-          />
-
-          {/* Audio Pitch Pipe Toggle */}
-          <SettingToggleRow
-            id="toggle-pitch-pipe"
-            icon={<Volume2 size={18} />}
-            title="Audio Pitch Pipe"
-            description="Play reference concert tuning note (A4 / 440 Hz)"
-            checked={settings.hapticFeedback}
-            onToggle={() => onUpdateSettings({ hapticFeedback: !settings.hapticFeedback })}
-          />
-
-          {/* Prevent Display Sleep Toggle */}
-          <SettingToggleRow
-            id="toggle-screen-awake"
-            icon={<Sun size={18} />}
-            title="Prevent Display Sleep"
-            description="Keep screen illuminated while reading hymns &amp; psalms"
-            checked={settings.keepScreenAwake}
-            onToggle={() => onUpdateSettings({ keepScreenAwake: !settings.keepScreenAwake })}
-          />
-        </SettingCard>
-
-        {/* CARD 4: Offline Hymnal Maintenance & Information */}
-        <section
-          aria-labelledby="heading-maintenance"
-          className="bg-[var(--bg-surface)] border border-[var(--border-color)] rounded-3xl p-3 sm:p-4 shadow-xs divide-y divide-[var(--border-color)]"
-        >
-          <h2 id="heading-maintenance" className="sr-only">
-            Hymnal Maintenance &amp; Information
-          </h2>
-
-          <SettingActionRow
-            icon={<Heart size={18} className="text-rose-500 fill-rose-500" />}
-            title="Support the Developer"
-            description="Voluntary contribution / buy a coffee to support maintenance"
-            badge="Tip Jar"
-            onClick={() => setShowSupportModal(true)}
-          />
-
-          <SettingActionRow
-            icon={<ShieldCheck size={18} className="text-emerald-500" />}
-            title="Acknowledgments &amp; Copyright"
-            description="Copyright © 2026 Chukwuemeka Nnaji (Nnajitec) &amp; liturgical sources"
-            onClick={() => setShowAckModal(true)}
-          />
-
-          <SettingActionRow
-            icon={<Info size={18} />}
-            title="About Psalms &amp; Hymns"
-            description="Complete 500 hymns offline collection details"
-            onClick={() => setShowAboutModal(true)}
-          />
-
-          <SettingActionRow
-            icon={<Trash2 size={18} />}
-            title="Clear Sung History"
-            description={historyCleared ? 'History cleared successfully!' : 'Reset recently opened hymns cache'}
-            badge={historyCleared ? 'Cleared' : 'Reset'}
-            onClick={handleClearHistory}
-          />
-
-          <SettingActionRow
-            icon={<Star size={18} className="fill-[var(--accent)] text-[var(--accent)]" />}
-            title="Rate This App"
-            description="Share your encouragement with other worshippers"
-            onClick={() => {
-              setShowRateMessage(true);
-              setTimeout(() => setShowRateMessage(false), 3000);
-            }}
-          />
-        </section>
-
-        {/* Feedback Alert for Rating */}
-        {showRateMessage && (
-          <div
-            role="status"
-            className="p-4 rounded-2xl bg-[var(--accent-bg)] text-[var(--accent)] text-xs sm:text-sm font-semibold text-center border border-[var(--accent)]/30 animate-fade-in"
-          >
-            Thank you for worshipping with Psalms &amp; Hymns! May God bless you richly.
+              <ThemeSelector
+                currentTheme={settings.theme}
+                onSelectTheme={(theme) => onUpdateSettings({ theme })}
+              />
+            </SettingCard>
           </div>
-        )}
 
-        {/* Version & Copyright Information */}
-        <div className="text-center text-xs text-dim pt-2 pb-8 space-y-1">
-          <div className="font-mono select-none">
-            Psalms &amp; Hymns Offline • Version 1.6 (Build 7)
-          </div>
-          <div className="font-sans">
-            Copyright &copy; 2026 Chukwuemeka Nnaji (Nnajitec) •{' '}
-            <a
-              href="mailto:nnajitec@gmail.com"
-              className="text-[var(--accent)] hover:underline font-medium"
+          {/* COLUMN 2: Audio/Display Controls, Support & About */}
+          <div className="space-y-6">
+            {/* CARD 3: Audio & Device Controls */}
+            <SettingCard className="divide-y divide-[var(--border-color)] space-y-0">
+              <SettingSectionHeader
+                id="heading-device"
+                icon={<Volume2 size={20} />}
+                title="Audio &amp; Display"
+                description="Pitch pipe tuning and screen illumination behavior"
+              />
+
+              {/* Audio Pitch Pipe Toggle */}
+              <SettingToggleRow
+                id="toggle-pitch-pipe"
+                icon={<Volume2 size={18} />}
+                title="Audio Pitch Pipe"
+                description="Play reference concert tuning note (A4 / 440 Hz)"
+                checked={settings.hapticFeedback}
+                onToggle={() => onUpdateSettings({ hapticFeedback: !settings.hapticFeedback })}
+              />
+
+              {/* Prevent Display Sleep Toggle */}
+              <SettingToggleRow
+                id="toggle-screen-awake"
+                icon={<Sun size={18} />}
+                title="Prevent Display Sleep"
+                description="Keep screen illuminated while reading hymns &amp; psalms"
+                checked={settings.keepScreenAwake}
+                onToggle={() => onUpdateSettings({ keepScreenAwake: !settings.keepScreenAwake })}
+              />
+            </SettingCard>
+
+            {/* CARD 4: Offline Hymnal Maintenance & Information */}
+            <section
+              aria-labelledby="heading-maintenance"
+              className="bg-[var(--bg-surface)] border border-[var(--border-color)] rounded-3xl p-3 sm:p-4 shadow-xs divide-y divide-[var(--border-color)]"
             >
-              nnajitec@gmail.com
-            </a>
+              <h2 id="heading-maintenance" className="sr-only">
+                Hymnal Maintenance &amp; Information
+              </h2>
+
+              <SettingActionRow
+                icon={<Heart size={18} className="text-rose-500 fill-rose-500" />}
+                title="Support the Developer"
+                description="Voluntary contribution / buy a coffee to support maintenance"
+                badge="Tip Jar"
+                onClick={() => setShowSupportModal(true)}
+              />
+
+              <SettingActionRow
+                icon={<ShieldCheck size={18} className="text-emerald-500" />}
+                title="Acknowledgments &amp; Copyright"
+                description="Copyright © 2026 Chukwuemeka Nnaji (Nnajitec) &amp; liturgical sources"
+                onClick={() => setShowAckModal(true)}
+              />
+
+              <SettingActionRow
+                icon={<Info size={18} />}
+                title="About Psalms &amp; Hymns"
+                description="Complete 500 hymns offline collection details"
+                onClick={() => setShowAboutModal(true)}
+              />
+
+              <SettingActionRow
+                icon={<Trash2 size={18} />}
+                title="Clear Sung History"
+                description={historyCleared ? 'History cleared successfully!' : 'Reset recently opened hymns cache'}
+                badge={historyCleared ? 'Cleared' : 'Reset'}
+                onClick={handleClearHistory}
+              />
+
+              <SettingActionRow
+                icon={<Star size={18} className="fill-[var(--accent)] text-[var(--accent)]" />}
+                title="Rate This App"
+                description="Share your encouragement with other worshippers"
+                onClick={() => {
+                  setShowRateMessage(true);
+                  setTimeout(() => setShowRateMessage(false), 3000);
+                }}
+              />
+            </section>
+
+            {/* Feedback Alert for Rating */}
+            {showRateMessage && (
+              <div
+                role="status"
+                className="p-4 rounded-2xl bg-[var(--accent-bg)] text-[var(--accent)] text-xs sm:text-sm font-semibold text-center border border-[var(--accent)]/30 animate-fade-in"
+              >
+                Thank you for worshipping with Psalms &amp; Hymns! May God bless you richly.
+              </div>
+            )}
+
+            {/* Version & Copyright Information */}
+            <div className="text-center text-xs text-dim pt-2 pb-8 space-y-1">
+              <div className="font-mono select-none">
+                Psalms &amp; Hymns Offline • Version 1.6 (Build 7)
+              </div>
+              <div className="font-sans">
+                Copyright &copy; 2026 Chukwuemeka Nnaji (Nnajitec) •{' '}
+                <a
+                  href="mailto:nnajitec@gmail.com"
+                  className="text-[var(--accent)] hover:underline font-medium"
+                >
+                  nnajitec@gmail.com
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </main>

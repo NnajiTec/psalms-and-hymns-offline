@@ -54,7 +54,7 @@ export const DevotionsView: React.FC<DevotionsViewProps> = ({ onOpenHymn }) => {
 
   return (
     <div className="flex-1 w-full min-h-0 overflow-y-auto pb-44 pt-3 scroll-smooth app-bg" style={{ WebkitOverflowScrolling: 'touch' }}>
-      <div className="max-w-xl mx-auto px-5 sm:px-8 py-3">
+      <div className="max-w-xl md:max-w-3xl lg:max-w-4xl mx-auto px-5 sm:px-8 py-6">
         {/* Date & Day Switcher Bar */}
         <div className="flex items-center justify-between pb-3.5 mb-6 border-b border-[var(--border-color)]">
           <div className="flex items-center gap-2">

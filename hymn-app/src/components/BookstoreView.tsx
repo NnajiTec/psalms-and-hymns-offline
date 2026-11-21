@@ -80,7 +80,7 @@ export const BookstoreView: React.FC<BookstoreViewProps> = ({ onOpenBook }) => {
         WebkitOverflowScrolling: 'touch',
       }}
     >
-      <div style={{ maxWidth: '840px', margin: '0 auto', padding: '16px' }}>
+      <div className="max-w-xl md:max-w-4xl lg:max-w-6xl xl:max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {/* Header Banner */}
         <div
           style={{

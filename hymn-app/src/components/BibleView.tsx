@@ -347,7 +347,7 @@ export const BibleView: React.FC<BibleViewProps> = ({ settings }) => {
         style={{ WebkitOverflowScrolling: 'touch' }}
       >
         {/* Book & Chapter Header */}
-        <div className="text-center mb-8 border-b border-[var(--border-color)] pb-6 max-w-2xl mx-auto">
+        <div className="text-center mb-8 border-b border-[var(--border-color)] pb-6 max-w-3xl lg:max-w-4xl mx-auto">
           <span className="text-[11px] font-bold tracking-widest uppercase text-dim block mb-1">
             {currentBookObj.testament === 'OT' ? 'Old Testament' : 'New Testament'} • {activeVersionObj.code}
           </span>
@@ -374,7 +374,7 @@ export const BibleView: React.FC<BibleViewProps> = ({ settings }) => {
           </div>
         ) : (
           <div
-            className={`max-w-2xl mx-auto space-y-3 leading-relaxed text-main transition-all select-text ${
+            className={`max-w-3xl lg:max-w-4xl mx-auto space-y-3 leading-relaxed text-main transition-all select-text ${
               settings.fontFamily === 'sans' ? 'font-sans' : 'font-serif'
             }`}
             style={{ fontSize: `calc(1.05rem * ${fontScale})`, lineHeight: '1.8' }}
@@ -413,7 +413,7 @@ export const BibleView: React.FC<BibleViewProps> = ({ settings }) => {
         )}
 
         {/* Chapter Flipping Controls */}
-        <div className="max-w-2xl mx-auto mt-10 pt-6 border-t border-[var(--border-color)] flex items-center justify-between gap-3 select-none">
+        <div className="max-w-3xl lg:max-w-4xl mx-auto mt-10 pt-6 border-t border-[var(--border-color)] flex items-center justify-between gap-3 select-none">
           <button
             type="button"
             onClick={handlePrevChapter}

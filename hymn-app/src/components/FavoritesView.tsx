@@ -57,7 +57,7 @@ export const FavoritesView: React.FC<FavoritesViewProps> = ({
       className="flex-1 w-full min-h-0 overflow-y-auto pb-52 pt-2 scroll-smooth app-bg"
       style={{ WebkitOverflowScrolling: 'touch' }}
     >
-      <div className="max-w-xl mx-auto px-6 sm:px-10 py-6 space-y-5">
+      <div className="max-w-xl md:max-w-4xl lg:max-w-6xl xl:max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-5">
         {/* Modern 3-Pill Switcher */}
         <div className="flex p-1 rounded-full bg-[var(--bg-surface)] border border-[var(--border-color)] mb-5 shadow-xs">
           <button
@@ -121,11 +121,11 @@ export const FavoritesView: React.FC<FavoritesViewProps> = ({
               </p>
             </div>
           ) : (
-            <div className="space-y-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {bibleBookmarks.map((bm) => (
                 <div
                   key={bm.key}
-                  className="p-4 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-color)] shadow-xs flex items-start justify-between gap-3"
+                  className="p-4 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-color)] shadow-xs flex items-start justify-between gap-3 hover:border-[var(--accent)] transition-all"
                 >
                   <div
                     className="flex-1 cursor-pointer"
@@ -170,7 +170,7 @@ export const FavoritesView: React.FC<FavoritesViewProps> = ({
               </p>
             </div>
           ) : (
-            <div className="divide-y divide-[var(--border-color)] border-y border-[var(--border-color)] bg-[var(--bg-surface)] rounded-2xl overflow-hidden shadow-xs">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 sm:gap-3">
               {activeList.map((hymn) => {
                 const isFav = favorites.includes(hymn.number);
                 const parsed = parseMeterAndTune(hymn.meter);
@@ -179,19 +179,19 @@ export const FavoritesView: React.FC<FavoritesViewProps> = ({
                   <div
                     key={hymn.number}
                     onClick={() => onSelectHymn(hymn)}
-                    className={`group flex items-center justify-between py-3.5 px-3 sm:px-4 hover:bg-[var(--bg-surface-alt)]/60 transition-colors cursor-pointer ${
-                      isFav ? 'bg-[var(--accent-bg)]/20' : ''
+                    className={`group flex items-center justify-between py-3 px-3.5 sm:px-4 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-color)] hover:border-[var(--accent)] hover:shadow-xs transition-all cursor-pointer ${
+                      isFav ? 'bg-[var(--accent-bg)]/20 border-[var(--accent)]/40' : ''
                     }`}
                   >
-                    <div className="flex items-baseline gap-3.5 sm:gap-4 min-w-0 pr-2">
-                      <span className="font-mono text-sm sm:text-base font-bold text-gold w-9 sm:w-10 shrink-0 text-right">
-                        {hymn.number}
-                        {hymn.sign && <span className="text-xs font-black ml-0.5 text-amber-500">{hymn.sign}</span>}
-                      </span>
+                    <div className="flex items-center gap-3.5 min-w-0 pr-2">
+                      <div className="w-10 h-10 rounded-xl bg-[var(--accent)] text-white text-center flex flex-col items-center justify-center shrink-0 shadow-xs font-mono font-bold text-xs">
+                        <span>{hymn.number}</span>
+                        {hymn.sign && <span className="text-[9px] text-amber-200 leading-none">{hymn.sign}</span>}
+                      </div>
 
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center gap-1.5 truncate">
-                          <h3 className="text-base sm:text-lg font-serif font-medium text-main leading-snug truncate group-hover:text-gold transition-colors">
+                          <h3 className="text-sm sm:text-base font-serif font-medium text-main leading-snug truncate group-hover:text-[var(--accent)] transition-colors">
                             {hymn.title}
                           </h3>
                           {hymn.sign && (
@@ -200,9 +200,9 @@ export const FavoritesView: React.FC<FavoritesViewProps> = ({
                             </span>
                           )}
                         </div>
-                        <div className="flex items-center gap-1.5 text-xs text-dim mt-1 truncate font-sans">
+                        <div className="flex items-center gap-1.5 text-xs text-dim mt-0.5 truncate font-sans">
                           {parsed.tune && (
-                            <span className="text-gold font-medium truncate flex items-center gap-1">
+                            <span className="text-[var(--accent)] font-medium truncate flex items-center gap-1">
                               <Music size={11} className="shrink-0" />
                               <span>{parsed.tune}</span>
                             </span>

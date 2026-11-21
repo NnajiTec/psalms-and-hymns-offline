@@ -61,7 +61,7 @@ export const SearchView: React.FC<SearchViewProps> = ({
         paddingTop: 'max(env(safe-area-inset-top, 24px), 24px)',
       }}
     >
-      <div className="max-w-xl mx-auto px-6 sm:px-10 py-5 space-y-5">
+      <div className="max-w-xl md:max-w-4xl lg:max-w-6xl xl:max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 space-y-5">
         
         {/* Mode Switcher: Search Lyrics vs A-Z Index */}
         <div className="flex p-1 rounded-2xl bg-[var(--bg-surface-alt)] border border-[var(--border-color)] mb-3 shadow-xs">
@@ -159,8 +159,8 @@ export const SearchView: React.FC<SearchViewProps> = ({
               )}
             </div>
 
-            {/* Search Results List */}
-            <div className="flex flex-col gap-2.5">
+            {/* Search Results List: Responsive 2-column grid on wider screens */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
               {results.map(({ hymn, matchedField, snippet }) => {
                 const isFav = favorites.includes(hymn.number);
                 const parsed = parseMeterAndTune(hymn.meter);
@@ -237,7 +237,7 @@ export const SearchView: React.FC<SearchViewProps> = ({
           /* A-Z Alphabetical First-Line Index View */
           <div>
             {/* Quick Scroller */}
-            <div className="sticky top-0 z-20 py-2 bg-[var(--bg-app)]/95 backdrop-blur-md flex items-center gap-1 overflow-x-auto scrollbar-none border-b border-[var(--border-color)]">
+            <div className="sticky top-0 z-20 py-2 bg-[var(--bg-app)]/95 backdrop-blur-md flex items-center justify-start md:justify-center gap-1 overflow-x-auto scrollbar-none border-b border-[var(--border-color)]">
               {indexGroups.map((g) => (
                 <button
                   key={g.letter}
@@ -257,7 +257,7 @@ export const SearchView: React.FC<SearchViewProps> = ({
                   ref={(el) => { letterRefs.current[group.letter] = el; }}
                   className="scroll-mt-14"
                 >
-                  <div className="sticky top-12 z-10 py-1.5 px-3 bg-[var(--bg-surface-alt)] rounded-xl flex items-baseline justify-between mb-2 border border-[var(--border-color)]">
+                  <div className="sticky top-12 z-10 py-1.5 px-3 bg-[var(--bg-surface-alt)] rounded-xl flex items-baseline justify-between mb-2.5 border border-[var(--border-color)]">
                     <span className="font-serif font-bold text-base text-[var(--accent)]">
                       {group.letter}
                     </span>
@@ -266,12 +266,12 @@ export const SearchView: React.FC<SearchViewProps> = ({
                     </span>
                   </div>
 
-                  <div className="divide-y divide-[var(--border-color)] bg-[var(--bg-surface)] rounded-2xl border border-[var(--border-color)] overflow-hidden shadow-xs">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                     {group.hymns.map((hymn) => (
                       <div
                         key={hymn.number}
                         onClick={() => onSelectHymn(hymn)}
-                        className="group flex items-baseline justify-between py-2.5 px-3.5 hover:bg-[var(--bg-surface-alt)]/60 transition-colors cursor-pointer"
+                        className="group flex items-center justify-between py-2.5 px-3.5 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-color)] hover:border-[var(--accent)] hover:shadow-xs transition-all cursor-pointer"
                       >
                         <span className="text-xs sm:text-sm font-serif text-main truncate group-hover:text-[var(--accent)] transition-colors mr-3">
                           {formatHymnTitle(hymn.firstLine)}
