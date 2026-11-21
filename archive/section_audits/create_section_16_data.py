@@ -1,0 +1,492 @@
+# create_section_16_data.py
+# Section 16: The Place of the Name (Hymns 405 to 414)
+# Audited 100% against printed scan pages 206 to 213 of Part 2 PDF.
+
+import pprint
+
+SECTION_16_HYMNS = [
+    {
+        "num": 405,
+        "meter": "C.M.D.",
+        "tune": "HEREFORD",
+        "verses": [
+            [
+                "How truly lovely are Thy tents,",
+                "O Lord of hosts, to me!",
+                "My longing soul faints for Thy courts,",
+                "My heart cries out to Thee.",
+                "The sparrow and the swallow there",
+                "Find for their young a nest;",
+                "Thine altars, O my King and God,",
+                "Provide for them a rest."
+            ],
+            [
+                "Who in Thy house abide are blest,",
+                "They will be praising still;",
+                "And blest is he who, trusting, loves",
+                "The ways to Zion's hill.",
+                "Joy-springs and blessings mark their path",
+                "Along this vale of tears;",
+                "With strength renewed before their God",
+                "In Zion each appears."
+            ],
+            [
+                "Thine ear to my petitions, Lord,",
+                "Thou God of Jacob, yield.",
+                "Look now on Thine Anointed's face;",
+                "Behold, O God, our shield.",
+                "A day that's spent within Thy courts",
+                "A thousand ne'er excel;",
+                "I'd rather keep a door therein,",
+                "Than with the wicked dwell."
+            ],
+            [
+                "Himself to be a sun and shield,",
+                "The Lord, our God, doth show.",
+                "Unstinted grace and glory, too,",
+                "He surely will bestow.",
+                "No good from them will He withhold,",
+                "Who walk now perfectly;",
+                "Yea, bless\\`ed is the man who trusts,",
+                "O Lord of hosts, in Thee."
+            ]
+        ]
+    },
+    {
+        "num": 406,
+        "meter": "8.7.8.7.D",
+        "tune": "BETHANY",
+        "verses": [
+            [
+                "God is faithful, who forgave us",
+                "All the ills we e'er had done,",
+                "And in pity deigned to save us",
+                "For the sake of His dear Son.",
+                "God will through eternal ages",
+                "Not one sin remember more;",
+                "Blotted from th'accusing pages,",
+                "Nought the writing can restore."
+            ],
+            [
+                "God is faithful, He has raised us",
+                "From the dust to glory high;",
+                "In His Christ secure has placed us,",
+                "Never more to fall and die.",
+                "Bonds of love thus forged in heav\\`en,",
+                "Nothing, no one, can disrupt;",
+                "Wealth of heavenly blessings giv\\`en",
+                "Rests where nothing can corrupt."
+            ],
+            [
+                "God is faithful, He whose word is",
+                "Building up in unity",
+                "Saints who own His Christ their Lord is",
+                "In the one Community.",
+                "These the Father ne'er forgetteth,",
+                "Who the Son thus honour here;",
+                "In His book their names He setteth,",
+                "Gems for Him to honour there."
+            ],
+            [
+                "God is faithful. Deem no burden",
+                "He imposes hard to bear.",
+                "Faith beholds the bless\\`ed guerdon,",
+                "Rest eternal waiting there.",
+                "Ye, who for the faith contending,",
+                "God-equipped are warring now,",
+                "See the faithful God extending",
+                "Victor-wreaths to grace your brow."
+            ],
+            [
+                "God is faithful, He will ever",
+                "By His promises abide.",
+                "Human oaths may break, but never",
+                "Fails His word whate'er betide.",
+                "All your fears His word relieving,",
+                "On, ye saints, your Lord to meet;",
+                "Gladly then, your crowns receiving,",
+                "Haste to cast them at His feet."
+            ]
+        ]
+    },
+    {
+        "num": 407,
+        "meter": "C.M.D.",
+        "tune": "ELIM",
+        "verses": [
+            [
+                "Lo! men deem fitting to adorn",
+                "The kingly Sufferer's brow,",
+                "Not with gemmed gold, but wreathen thorn,",
+                "Then in derision bow.",
+                "With bitter taunt they haste the King,",
+                "Not to a glorious throne,",
+                "But to the cross the Lord they bring,",
+                "And there His claims disown."
+            ],
+            [
+                "Now myriads own, above the skies,",
+                "His right divine to reign,",
+                "But still the guilty world denies",
+                "His title with disdain.",
+                "Yet there's a place God set apart",
+                "Where He may reign on earth;",
+                "'Tis in the willing-opened heart",
+                "Of one of heavenly birth."
+            ],
+            [
+                "That heart, which He so dearly bought,",
+                "And cleansed by precious blood,",
+                "The fount of every evil thought,",
+                "Once in rebellion stood.",
+                "Oh, wonder! that the Lord should choose",
+                "This heart to be His throne.",
+                "Can I such honour e'er refuse,",
+                "Or spurn the grace He's shown?"
+            ],
+            [
+                "Take, Lord, Thy rightful place within,",
+                "And there supremely reign,",
+                "That never more oppressing sin",
+                "Dominion may obtain.",
+                "Rule now 'midst subject hearts, O Lord,",
+                "That so this sterile earth",
+                "May one green spot for Thee afford",
+                "In all its scene of dearth."
+            ],
+            [
+                "Soon shall Thy feet in triumph stand",
+                "Again on Olive's brow,",
+                "When men and kings of every land",
+                "At Thy great name shall bow.",
+                "Meanwhile, O Lord, Thy sceptre wield",
+                "Among Thy loyal few,",
+                "Till, as in heaven, all earth shall yield",
+                "To Thee Thy royal due."
+            ]
+        ]
+    },
+    {
+        "num": 408,
+        "meter": "7.6.7.6.",
+        "tune": "KOCHER",
+        "verses": [
+            [
+                "THE high ways we have traversed,",
+                "And come to Zion's hill,",
+                "Where God, our God, is with us,",
+                "His purpose to fulfil."
+            ],
+            [
+                "Here are God's house and altar,",
+                "The place of His great name,",
+                "Where praise to Him ascendeth,",
+                "Where we His grace acclaim."
+            ],
+            [
+                "'Tis here a holy priesthood",
+                "Can look upon His face,",
+                "And hence a royal priesthood",
+                "Proclaims His matchless grace."
+            ],
+            [
+                "This house for God to dwell in,",
+                "Of ransomed saints is built,",
+                "Who by the great atonement",
+                "Are purged and free from guilt."
+            ],
+            [
+                "We come to Christ, the Chosen",
+                "(The living stone is He),",
+                "Through Him to God the Father,",
+                "To make sweet melody."
+            ],
+            [
+                "And forth we'd go unfearing",
+                "The gospel to proclaim;",
+                "The Lord Himself is with us",
+                "As we exalt His name."
+            ],
+            [
+                "Earth's days will soon be over,",
+                "The day of Christ will come;",
+                "Come quickly, Lord, to take us",
+                "To Thy bright heavenly home."
+            ]
+        ]
+    },
+    {
+        "num": 409,
+        "meter": "6.6.6.6.8.8.",
+        "tune": "GOPSAL",
+        "verses": [
+            [
+                "JEHOVAH Elohim,",
+                "Thou Father and Thou Son",
+                "And Holy Spirit too",
+                "So perfectly are one.",
+                "Thy purposes and works agree",
+                "In an eternal unity."
+            ],
+            [
+                "Thou Author of our lives,",
+                "The counsels of Thy mind",
+                "Decreed our union,",
+                "And Thou in one didst bind",
+                "Our lives in Christ inseparable,",
+                "A Body indivisible."
+            ],
+            [
+                "'Tis precious too, O God,",
+                "Thine eye should look upon",
+                "Thy scattered children here",
+                "United into one.",
+                "Lord, may Thy word for ever be",
+                "Our guide to perfect unity."
+            ],
+            [
+                "Grant that more perfectly",
+                "Thy will may be expressed,",
+                "That gathered saints may show",
+                "Thy way of truth is best.",
+                "So mid this discord men may see",
+                "Divinely ordered unity."
+            ],
+            [
+                "Light and discernment give",
+                "Those who are unaware",
+                "Dark error binds their feet",
+                "In Satan's subtle snare;",
+                "Unfold Thy way of unity,",
+                "Show them the one Community."
+            ],
+            [
+                "All heaven shall soon rejoice",
+                "(Oh, haste the blissful day),",
+                "When Thou shalt call Thine own",
+                "From every land away,",
+                "And those now sundered then shall be",
+                "United for eternity."
+            ]
+        ]
+    },
+    {
+        "num": 410,
+        "meter": "7.6.7.6.D",
+        "tune": "ELLACOMBE",
+        "verses": [
+            [
+                "How perfect our salvation",
+                "Through Him who bore the shame.",
+                "We're free from condemnation;",
+                "Sin offering He became.",
+                "We are a holy nation,",
+                "And come in His blest name",
+                "To offer our oblation,",
+                "To celebrate His fame."
+            ],
+            [
+                "Each Lordly morn confessing",
+                "The One who bore our blame,",
+                "Such wealth in Him possessing,",
+                "His matchless worth acclaim.",
+                "Yet week-day griefs oppressing,",
+                "With many a weary care,",
+                "Oft trials so hard, distressing,",
+                "Near drive us to despair."
+            ],
+            [
+                "But aye let us endeavour",
+                "To go to God in prayer,",
+                "For sure no trial can sever",
+                "Our spirits from His care.",
+                "Our hardest path is never",
+                "So hard as that He trod,",
+                "Who day by day is ever",
+                "Just leading us to God."
+            ],
+            [
+                "Then sing we our salvation",
+                "As patiently we plod,",
+                "Resisting all temptation,",
+                "Nor fainting 'neath the rod.",
+                "With peaceful preparation",
+                "For gospel message shod,",
+                "We'll seek Christ's approbation,",
+                "And tread the path He trod."
+            ]
+        ]
+    },
+    {
+        "num": 411,
+        "meter": "8.8.6.8.8.6.",
+        "tune": "HULL",
+        "verses": [
+            [
+                "FROM various cares my heart retires;",
+                "Though deep and boundless its desires,",
+                "I've now to please but One;",
+                "Him to whom every knee shall bow,",
+                "With Him is all my business now,",
+                "And those that are His own."
+            ],
+            [
+                "With these my happy lot is cast,",
+                "Through the world's deserts rude and waste,",
+                "Or through its gardens fair;",
+                "Whether the storms of trouble sweep,",
+                "Or all in dead supineness sleep,",
+                "T' advance be all my care."
+            ],
+            [
+                "O Lord, my way, my truth, my life,",
+                "Henceforth let sorrow, doubt and strife",
+                "Drop off like autumn leaves.",
+                "Henceforth, as privileged by Thee,",
+                "Simple and undistracted be",
+                "My soul, which to Thee cleaves."
+            ],
+            [
+                "Let me my feebleness recline",
+                "On that eternal love of Thine,",
+                "And human thoughts forget;",
+                "Childlike attend what Thou wilt say,",
+                "Go forth and serve Thee while 'tis day,",
+                "Nor leave my sweet retreat."
+            ]
+        ]
+    },
+    {
+        "num": 412,
+        "meter": "C.M.",
+        "tune": "ROSSINI",
+        "verses": [
+            [
+                "As pants the hart for cooling streams",
+                "When heated in the chase,",
+                "So longs my soul, O God, for Thee",
+                "And Thy refreshing grace."
+            ],
+            [
+                "For Thee, my God, the living God,",
+                "My thirsty soul doth pine;",
+                "Oh, when shall I behold Thy face,",
+                "Thou Majesty divine?"
+            ],
+            [
+                "Why restless, why cast down, my soul?",
+                "Hope still, and thou shalt sing",
+                "The praise of Him who is thy God,",
+                "Thy health's eternal spring."
+            ],
+            [
+                "Oh, send Thy light and send Thy truth,",
+                "And let them guide me still",
+                "To Zion's mount where Thou dost dwell,",
+                "Yea, to Thy holy hill."
+            ],
+            [
+                "Unto the altar of my God,",
+                "To God my joy supreme,",
+                "I would draw nigh through precious blood,",
+                "Where I may worship Him."
+            ]
+        ]
+    },
+    {
+        "num": 413,
+        "meter": "L.M.",
+        "tune": "MONTGOMERY",
+        "verses": [
+            [
+                "How pleasant, how divinely fair,",
+                "O Lord of hosts, Thy dwellings are!",
+                "With long desire my spirit faints",
+                "To join th' assemblies of Thy saints."
+            ],
+            [
+                "My flesh would rest in Thine abode,",
+                "My panting heart cries out for God;",
+                "My God, my King, why should I be",
+                "So far from all my joys and Thee?"
+            ],
+            [
+                "The sparrow chooses where to rest,",
+                "And for her young provides her nest;",
+                "But will my God to sparrows grant",
+                "That pleasure, and let His saints want?"
+            ],
+            [
+                "Blest are the saints that find a place",
+                "Within the temple of Thy grace;",
+                "There they behold Thy gracious rays,",
+                "And seek Thy face and learn Thy praise."
+            ],
+            [
+                "Yea, blest are they whose hearts are set",
+                "To find the way to Zion's gate;",
+                "God is their strength, and on the road",
+                "They lean upon their Helper, God."
+            ],
+            [
+                "Cheerful they walk with growing strength,",
+                "Till all shall meet in heaven at length;",
+                "There, never more to weep or fear,",
+                "Before Thy face shall each appear."
+            ]
+        ]
+    },
+    {
+        "num": 414,
+        "meter": "L.M.",
+        "tune": "RIVAULX",
+        "verses": [
+            [
+                "THIS is the day the Lord has made,",
+                "In it He has His grace displayed.",
+                "'Tis ours to sing in holy lays,",
+                "For all His love, our grateful praise."
+            ],
+            [
+                "O Lord, for all the days gone by,",
+                "Thy name we gladly magnify;",
+                "For Thou hast brought us to Thine hill,",
+                "Thy purpose, Lord, here to fulfil."
+            ],
+            [
+                "Within Thy house, in number few,",
+                "We seek Thy grace Thy will to do.",
+                "Lord, of ourselves we're very weak;",
+                "Thy help and strength we humbly seek."
+            ],
+            [
+                "The future, Lord, we do not know,",
+                "But seek that we in grace may grow,",
+                "To meet what comes in simple faith,",
+                "Believing what the Scripture saith."
+            ],
+            [
+                "For those who in Jehovah trust,",
+                "Triumph they will and triumph must.",
+                "Lord God Almighty, Thou our rock,",
+                "Wilt surely save Thy little flock."
+            ],
+            [
+                "Oh, quickly send the coming day",
+                "When we shall leave these clods of clay;",
+                "With those in Christ raised from the dead,",
+                "We'll join with joy our glorious Head."
+            ]
+        ]
+    }
+]
+
+if __name__ == "__main__":
+    with open(r"E:\Hymn treatment\section_16_data.py", "w", encoding="utf-8") as f:
+        f.write("# section_16_data.py\n")
+        f.write("# Section 16: The Place of the Name (Hymns 405 to 414)\n")
+        f.write("# 100% verified against original printed scan pages 206 to 213.\n\n")
+        f.write("SECTION_16_HYMNS = ")
+        f.write(pprint.pformat(SECTION_16_HYMNS, width=120, sort_dicts=False))
+        f.write("\n")
+    print(f"Total Section 16 hymns written: {len(SECTION_16_HYMNS)} (Hymns 405 to 414)")

@@ -1,0 +1,351 @@
+@import "tailwindcss";
+@import "./fonts.css";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ==========================================================================
+   Psalms, Hymns and Spiritual Songs - Premium Sacred Digital Hymnal
+   Refined Palette:
+   • Primary Background: Warm Ivory (#F7F4ED)
+   • Primary Text: Midnight Navy (#182238)
+   • Accent Colour: Warm Bronze (#B56B2B)
+   • Secondary Text: Soft Grey (#9296A0 / #5A6275)
+   • Dividers: Subtle Warm Grey (#E8E3DA)
+   • Cards: White (#FFFFFF)
+   ========================================================================== */
+
+:root {
+  --font-serif: 'Lora', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+  
+  --transition-fast: 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-normal: 250ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Default Warm Ivory Theme */
+  --bg-app: #F7F4ED;
+  --bg-surface: #FFFFFF;
+  --bg-surface-alt: #EFECE4;
+  --bg-surface-elevated: #FFFFFF;
+  --bg-header: rgba(247, 244, 237, 0.95);
+  --bg-floating: rgba(255, 255, 255, 0.96);
+  --border-color: #E8E3DA;
+  --border-subtle: #EFECE6;
+  
+  --text-primary: #182238;
+  --text-secondary: #4A5366;
+  --text-muted: #5A6275;
+  --text-verse-num: #B56B2B;
+  
+  --accent: #B56B2B;
+  --accent-hover: #9A5720;
+  --accent-bg: rgba(181, 107, 43, 0.08);
+  --accent-contrast: #FFFFFF;
+  --accent-gold: #B56B2B;
+  
+  --badge-bg: #EFECE4;
+  --badge-text: #B56B2B;
+  
+  --chorus-border: #B56B2B;
+  --chorus-bg: rgba(181, 107, 43, 0.04);
+
+  --shadow-dock: 0 10px 28px rgba(24, 34, 56, 0.09);
+  --shadow-card: 0 2px 10px rgba(24, 34, 56, 0.04);
+}
+
+/* 1. Light Theme: Warm Ivory (Sacred Hymnal Standard) */
+body.theme-light {
+  --bg-app: #F7F4ED;
+  --bg-surface: #FFFFFF;
+  --bg-surface-alt: #EFECE4;
+  --bg-surface-elevated: #FFFFFF;
+  --bg-header: rgba(247, 244, 237, 0.96);
+  --bg-floating: rgba(255, 255, 255, 0.96);
+  --border-color: #E8E3DA;
+  --border-subtle: #EFECE6;
+  
+  --text-primary: #182238;
+  --text-secondary: #4A5366;
+  --text-muted: #5A6275;
+  --text-verse-num: #B56B2B;
+  
+  --accent: #B56B2B;
+  --accent-hover: #9A5720;
+  --accent-bg: rgba(181, 107, 43, 0.08);
+  --accent-contrast: #FFFFFF;
+  --accent-gold: #B56B2B;
+  
+  --badge-bg: #EFECE4;
+  --badge-text: #B56B2B;
+  
+  --chorus-border: #B56B2B;
+  --chorus-bg: rgba(181, 107, 43, 0.04);
+
+  --shadow-dock: 0 10px 28px rgba(24, 34, 56, 0.09);
+  --shadow-card: 0 2px 10px rgba(24, 34, 56, 0.04);
+}
+
+/* 2. Dark Theme: Midnight Navy (Low-light Sanctuary) */
+body.theme-dark {
+  --bg-app: #111726;
+  --bg-surface: #182238;
+  --bg-surface-alt: #1F2B45;
+  --bg-surface-elevated: #22304E;
+  --bg-header: rgba(17, 23, 38, 0.96);
+  --bg-floating: rgba(24, 34, 56, 0.96);
+  --border-color: #263352;
+  --border-subtle: #1C263D;
+  
+  --text-primary: #F7F4ED;
+  --text-secondary: #CBD2DF;
+  --text-muted: #A2ABC0;
+  --text-verse-num: #D98236;
+  
+  --accent: #D98236;
+  --accent-hover: #E3944D;
+  --accent-bg: rgba(217, 130, 54, 0.12);
+  --accent-contrast: #FFFFFF;
+  --accent-gold: #D98236;
+  
+  --badge-bg: #1F2B45;
+  --badge-text: #E8AF7A;
+  
+  --chorus-border: #D98236;
+  --chorus-bg: rgba(217, 130, 54, 0.06);
+
+  --shadow-dock: 0 12px 32px rgba(0, 0, 0, 0.45);
+  --shadow-card: 0 2px 10px rgba(0, 0, 0, 0.25);
+}
+
+/* ==========================================================================
+   GLOBAL RESET & TYPOGRAPHY BASE
+   ========================================================================== */
+
+@layer base {
+  *, ::before, ::after {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  background-color: var(--bg-app);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+
+#root {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Minimalist Scrollbars */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* ==========================================================================
+   TYPOGRAPHY UTILITIES
+   ========================================================================== */
+
+.font-family-serif {
+  font-family: var(--font-serif);
+}
+
+.font-family-sans {
+  font-family: var(--font-sans);
+}
+
+/* Font Sizes */
+.font-size-sm {
+  --lyric-size: 15px;
+  --title-size: 20px;
+}
+
+.font-size-md {
+  --lyric-size: 17px;
+  --title-size: 23px;
+}
+
+.font-size-lg {
+  --lyric-size: 19px;
+  --title-size: 26px;
+}
+
+.font-size-xl {
+  --lyric-size: 22px;
+  --title-size: 30px;
+}
+
+.font-size-2xl {
+  --lyric-size: 26px;
+  --title-size: 35px;
+}
+
+/* ==========================================================================
+   SEMANTIC THEME SURFACE & COLOR UTILITIES
+   ========================================================================== */
+
+.app-bg {
+  background-color: var(--bg-app);
+}
+
+.surface-clean {
+  background-color: var(--bg-surface);
+}
+
+.surface-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-card);
+}
+
+.surface-card-elevated {
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-dock);
+}
+
+.surface-alt {
+  background-color: var(--bg-surface-alt);
+}
+
+.text-main {
+  color: var(--text-primary);
+}
+
+.text-sub {
+  color: var(--text-secondary);
+}
+
+.text-dim {
+  color: var(--text-muted);
+}
+
+.text-gold {
+  color: var(--accent-gold);
+}
+
+.bg-bronze {
+  background-color: var(--accent);
+}
+
+.text-bronze {
+  color: var(--accent);
+}
+
+.border-bronze {
+  border-color: var(--accent);
+}
+
+.border-theme-main {
+  border-color: var(--border-color);
+}
+
+.border-theme-subtle {
+  border-color: var(--border-subtle);
+}
+
+.floating-dock {
+  background-color: var(--bg-floating);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-dock);
+}
+
+/* Reading Screen Toolbar & Content Clearance */
+.reading-toolbar-dock {
+  bottom: calc(68px + max(12px, env(safe-area-inset-bottom, 12px)));
+}
+
+@media (min-width: 1024px) {
+  .reading-toolbar-dock {
+    bottom: max(20px, env(safe-area-inset-bottom, 20px));
+  }
+}
+
+.reading-content-spacer {
+  height: calc(215px + env(safe-area-inset-bottom, 24px));
+  min-height: 215px;
+}
+
+@media (min-width: 1024px) {
+  .reading-content-spacer {
+    height: calc(145px + env(safe-area-inset-bottom, 20px));
+    min-height: 145px;
+  }
+}
+
+/* Clean Separator Line */
+.clean-divider {
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* ==========================================================================
+   ANIMATIONS & TRANSITIONS
+   ========================================================================== */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 180ms ease forwards;
+}
+
+.animate-slide-up {
+  animation: slideInUp 200ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slide-left {
+  animation: slideInLeft 200ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ==========================================================================
+   HYMN CONTENT IP PROTECTION & ANTI-SCRAPING
+   ========================================================================== */
+.hymn-lyrics-protected,
+.hymn-lyrics-protected * {
+  -webkit-touch-callout: none !important;
+  -webkit-user-select: none !important;
+  -khtml-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+}

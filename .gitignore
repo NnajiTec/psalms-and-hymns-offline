@@ -1,0 +1,40 @@
+# Dependencies
+node_modules/
+hymn-app/node_modules/
+
+# Production builds
+dist/
+hymn-app/dist/
+dist-ssr/
+hymn-app/dist-ssr/
+
+# Android build artifacts
+.gradle/
+hymn-app/android/.gradle/
+build/
+hymn-app/android/build/
+hymn-app/android/app/build/
+hymn-app/android/capacitor-cordova-android-plugins/build/
+hymn-app/android/capacitor-network/build/
+
+# Signing keys & secrets (NEVER commit to git!)
+*.jks
+*.keystore
+keystore.properties
+*.p8
+*.p12
+
+# Binaries & Bundles
+*.apk
+*.aab
+
+# Local env & logs
+*.log
+logs/
+.DS_Store
+Thumbs.db
+*.local
+
+# Python cache
+__pycache__/
+*.pyc
