@@ -306,20 +306,78 @@ export function parseReference(ref: string): ParsedReference | null {
   };
 }
 
+function getCandidateBibleUrls(versionId: string): string[] {
+  const urls: string[] = [];
+
+  // 1. Vite configured base URL (handles relative or custom base path)
+  const baseUrl = import.meta.env.BASE_URL;
+  if (baseUrl) {
+    const cleanBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+    urls.push(`${cleanBase}bible/${versionId}.json`);
+  }
+
+  // 2. Window location origin + pathname directory (GitHub Pages subpaths)
+  if (typeof window !== 'undefined' && window.location) {
+    const pathname = window.location.pathname;
+    const dir = pathname.substring(0, pathname.lastIndexOf('/') + 1);
+    const cleanDir = dir.startsWith('/') ? dir : `/${dir}`;
+    urls.push(`${window.location.origin}${cleanDir}bible/${versionId}.json`);
+
+    if (!pathname.endsWith('/')) {
+      urls.push(`${window.location.origin}${pathname}/bible/${versionId}.json`);
+    }
+  }
+
+  // 3. Document baseURI (if specified via <base> tag or document location)
+  if (typeof document !== 'undefined' && document.baseURI) {
+    try {
+      const resolved = new URL(`bible/${versionId}.json`, document.baseURI).href;
+      urls.push(resolved);
+    } catch {
+      // ignore
+    }
+  }
+
+  // 4. Relative paths
+  urls.push(`./bible/${versionId}.json`);
+  urls.push(`bible/${versionId}.json`);
+
+  // 5. Host root path (works on localhost / Capacitor Android root)
+  urls.push(`/bible/${versionId}.json`);
+
+  return Array.from(new Set(urls));
+}
+
 async function loadVersionRawJson(versionId: string): Promise<Array<{ name: string; abbrev: string; chapters: string[][] }> | null> {
   if (versionFileCache.has(versionId)) {
     return versionFileCache.get(versionId)!;
   }
-  try {
-    const res = await fetch(`/bible/${versionId}.json`);
-    if (!res.ok) return null;
-    const data = await res.json();
-    versionFileCache.set(versionId, data);
-    return data;
-  } catch (err) {
-    console.warn(`[BibleService] Error loading /bible/${versionId}.json:`, err);
-    return null;
+
+  const urls = getCandidateBibleUrls(versionId);
+
+  for (const url of urls) {
+    try {
+      const res = await fetch(url);
+      if (!res.ok) continue;
+
+      const contentType = res.headers.get('content-type') || '';
+      // If a web server serves 404 HTML fallback (SPA rewrite) with 200, skip it
+      if (contentType.includes('text/html')) {
+        continue;
+      }
+
+      const data = await res.json();
+      if (Array.isArray(data) && data.length > 0) {
+        versionFileCache.set(versionId, data);
+        return data;
+      }
+    } catch {
+      // Continue to next candidate
+    }
   }
+
+  console.warn(`[BibleService] Error loading bible/${versionId}.json from candidates:`, urls);
+  return null;
 }
 
 export async function isVersionDownloaded(versionId: string): Promise<boolean> {
@@ -349,7 +407,10 @@ export async function downloadTranslation(
   try {
     onProgress?.(5);
     const rawData = await loadVersionRawJson(versionId);
-    if (!rawData) return false;
+    if (!rawData) {
+      console.error(`[BibleService] Download failed: could not load raw JSON for ${versionId}`);
+      return false;
+    }
 
     onProgress?.(25);
     const db = await getBibleDB();
@@ -362,6 +423,9 @@ export async function downloadTranslation(
     }
 
     let processed = 0;
+    const batchSize = 100;
+    let currentBatch: Promise<unknown>[] = [];
+
     for (const b of rawData) {
       const bookObj = resolveBook(b.name) || resolveBook(b.abbrev);
       const bookName = bookObj ? bookObj.name : b.name;
@@ -372,20 +436,31 @@ export async function downloadTranslation(
         const verses = b.chapters[chIdx];
         const key = `${versionId}_${cleanBook}_${chapterNum}`;
 
-        await store.put({
-          key,
-          version: versionId,
-          book: bookName,
-          chapter: chapterNum,
-          verses,
-        });
+        currentBatch.push(
+          store.put({
+            key,
+            version: versionId,
+            book: bookName,
+            chapter: chapterNum,
+            verses,
+          })
+        );
 
         processed++;
-        if (processed % 80 === 0 && onProgress) {
-          const pct = Math.min(95, 25 + Math.floor((processed / totalChapters) * 70));
-          onProgress(pct);
+
+        if (currentBatch.length >= batchSize) {
+          await Promise.all(currentBatch);
+          currentBatch = [];
+          if (onProgress) {
+            const pct = Math.min(95, 25 + Math.floor((processed / totalChapters) * 70));
+            onProgress(pct);
+          }
         }
       }
+    }
+
+    if (currentBatch.length > 0) {
+      await Promise.all(currentBatch);
     }
 
     await tx.done;
