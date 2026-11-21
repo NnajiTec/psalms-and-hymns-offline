@@ -16,7 +16,6 @@ import appLogo from '../assets/app-icon.png';
 interface SidebarProps {
   currentTab: AppViewTab;
   onSelectTab: (tab: AppViewTab) => void;
-  onOpenScriptureDrawer: () => void;
   onOpenDialPad: () => void;
   favoritesCount: number;
   isOpenMobile?: boolean;
@@ -26,7 +25,6 @@ interface SidebarProps {
 export const Sidebar: React.FC<SidebarProps> = ({
   currentTab,
   onSelectTab,
-  onOpenScriptureDrawer,
   onOpenDialPad,
   favoritesCount,
   isOpenMobile = false,
@@ -35,6 +33,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const navItems: { id: AppViewTab; label: string; icon: any; badge?: string | number }[] = [
     { id: 'hymns', label: '500 Psalms & Hymns', icon: Music },
     { id: 'bible', label: 'Holy Bible', icon: BookOpen },
+    { id: 'anchor', label: 'Biblical Anchors', icon: Anchor, badge: '10' },
     { id: 'search', label: 'A–Z Index', icon: ListFilter },
     { id: 'saved', label: 'Bookmarks & History', icon: Bookmark, badge: favoritesCount > 0 ? favoritesCount : undefined },
     { id: 'devotions', label: 'Daily Morning Manna', icon: Sun },
@@ -121,10 +120,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <span className="text-[10px] font-mono text-dim">1–500</span>
         </button>
 
-        {/* Biblical Anchors Drawer */}
+        {/* Biblical Anchors Quick Jump */}
         <button
           onClick={() => {
-            onOpenScriptureDrawer();
+            onSelectTab('anchor');
             if (isOpenMobile && onCloseMobile) onCloseMobile();
           }}
           className="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-medium text-sub hover:bg-[var(--bg-surface-alt)] hover:text-main transition-colors cursor-pointer"

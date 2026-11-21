@@ -23,6 +23,7 @@ import { FavoritesView } from './components/FavoritesView';
 import { NumberPadModal } from './components/NumberPadModal';
 import { TypographyDrawer } from './components/TypographyDrawer';
 import { ScriptureDrawer } from './components/ScriptureDrawer';
+import { AnchorView } from './components/AnchorView';
 
 import { LibraryView } from './components/LibraryView';
 import { DevotionsView } from './components/DevotionsView';
@@ -191,7 +192,8 @@ export const App: React.FC = () => {
 
   const handleOpenScripture = (ref?: string) => {
     setScriptureInitialRef(ref || null);
-    setIsScriptureDrawerOpen(true);
+    backToList();
+    setCurrentMainTab('anchor');
   };
 
   // Handle PWA install event
@@ -299,7 +301,6 @@ export const App: React.FC = () => {
             setCurrentMainTab(tab);
             if (tab === 'hymns') setHomeSubView('dashboard');
           }}
-          onOpenScriptureDrawer={() => handleOpenScripture()}
           onOpenDialPad={() => setIsDialOpen(true)}
           favoritesCount={favorites.length}
           isOpenMobile={isMobileSidebarOpen}
@@ -446,6 +447,23 @@ export const App: React.FC = () => {
                 />
               )}
 
+              {/* 3. Biblical Anchors (Dedicated Assembly Scripture View) */}
+              {currentMainTab === 'anchor' && (
+                <AnchorView
+                  initialReference={scriptureInitialRef}
+                  onOpenBibleVerse={(book, chapter) => {
+                    localStorage.setItem('tbc_bible_book', book);
+                    localStorage.setItem('tbc_bible_chapter', chapter.toString());
+                    backToList();
+                    setCurrentMainTab('bible');
+                  }}
+                  onOpenHymnByNumber={(hNum) => {
+                    const h = getHymnByNumber(hNum);
+                    if (h) selectHymn(h);
+                  }}
+                />
+              )}
+
               {/* 3. Unified Search Lyrics & A-Z Index */}
               {currentMainTab === 'search' && (
                 <SearchView
@@ -542,8 +560,6 @@ export const App: React.FC = () => {
                 setCurrentMainTab(tab);
               }
             }}
-            onOpenScripture={() => setIsScriptureDrawerOpen(true)}
-            isScriptureOpen={isScriptureDrawerOpen}
           />
         )}
       </div>

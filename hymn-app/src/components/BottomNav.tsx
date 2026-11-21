@@ -5,21 +5,17 @@ import type { AppViewTab } from '../types/hymn';
 export interface BottomNavProps {
   currentTab: AppViewTab;
   onSelectTab: (tab: AppViewTab) => void;
-  onOpenScripture?: () => void;
-  isScriptureOpen?: boolean;
 }
 
 export const BottomNav: React.FC<BottomNavProps> = ({
   currentTab,
   onSelectTab,
-  onOpenScripture,
-  isScriptureOpen = false,
 }) => {
   const tabs = [
     { id: 'home', label: 'Home', icon: Home },
     { id: 'bible', label: 'Bible', icon: BookOpen },
+    { id: 'anchor', label: 'Anchors', icon: Anchor },
     { id: 'devotions', label: 'Manna', icon: Sun },
-    { id: 'anchor', label: 'Bible Anchor', icon: Anchor, isAction: true },
     { id: 'search', label: 'Index', icon: Search },
   ];
 
@@ -37,19 +33,15 @@ export const BottomNav: React.FC<BottomNavProps> = ({
       >
         {tabs.map((tab) => {
           const Icon = tab.icon;
-          const isActive = tab.isAction
-            ? isScriptureOpen
-            : !isScriptureOpen &&
-              ((tab.id === 'home' && (currentTab === 'hymns' || currentTab === 'home')) ||
-                currentTab === tab.id);
+          const isActive =
+            (tab.id === 'home' && (currentTab === 'hymns' || currentTab === 'home')) ||
+            currentTab === tab.id;
 
           return (
             <button
               key={tab.id}
               onClick={() => {
-                if (tab.isAction) {
-                  onOpenScripture?.();
-                } else if (tab.id === 'home') {
+                if (tab.id === 'home') {
                   onSelectTab('home');
                 } else {
                   onSelectTab(tab.id as AppViewTab);

@@ -47,4 +47,4 @@ export interface Bookmark {
 }
 
 export type ActiveTab = 'browse' | 'dial' | 'search' | 'index' | 'favorites';
-export type AppViewTab = 'home' | 'hymns' | 'bible' | 'library' | 'devotions' | 'bookstore' | 'search' | 'saved' | 'settings';
+export type AppViewTab = 'home' | 'hymns' | 'bible' | 'anchor' | 'library' | 'devotions' | 'bookstore' | 'search' | 'saved' | 'settings';
