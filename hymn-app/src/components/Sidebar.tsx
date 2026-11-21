@@ -11,6 +11,7 @@ import {
   Settings,
 } from 'lucide-react';
 import type { AppViewTab } from '../types/hymn';
+import appLogo from '../assets/app-icon.png';
 
 interface SidebarProps {
   currentTab: AppViewTab;
@@ -46,7 +47,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       <div className="p-5 border-b border-[var(--border-color)] flex items-center justify-between">
         <div className="flex items-center gap-3 min-w-0">
           <img
-            src="/app-icon.png"
+            src={appLogo}
             alt="The Believer’s Companion Logo"
             className="w-9 h-9 rounded-xl object-cover shadow-xs"
           />

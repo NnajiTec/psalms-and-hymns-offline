@@ -21,6 +21,7 @@ import {
 import type { AppSettings, FontSize, FontFamily, LineHeight, TextAlign } from '../types/hymn';
 import { clearHistory } from '../services/storage';
 import { themes } from '../theme/tokens';
+import appLogo from '../assets/app-icon.png';
 
 // ============================================================================
 // Types & Interfaces
@@ -528,7 +529,7 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
       >
         <div className="flex items-center justify-between pb-3 border-b border-[var(--border-color)]">
           <div className="flex items-center gap-3">
-            <img src="/app-icon.png" alt="App Logo" className="w-9 h-9 rounded-xl object-cover shadow-xs border border-amber-300/30" />
+            <img src={appLogo} alt="App Logo" className="w-9 h-9 rounded-xl object-cover shadow-xs border border-amber-300/30" />
             <h3 id="about-dialog-title" className="font-serif font-bold text-base text-main">
               Psalms &amp; Hymns Offline
             </h3>

@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import type { Hymn } from '../types/hymn';
 import { getHymnByNumber, getSections } from '../services/search';
+import appLogo from '../assets/app-icon.png';
 
 // Helper to normalize ALL-CAPS first words like "CROWNS of glory" -> "Crowns of glory"
 export function formatHymnTitle(rawTitle: string): string {
@@ -172,7 +173,7 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
 
             {/* Sacred Cross & Bible Emblem (New Brand Logo) */}
             <div className="w-13 h-13 rounded-2xl overflow-hidden shrink-0 shadow-lg border border-amber-300/30 bg-black/20">
-              <img src="/app-icon.png" alt="The Believer’s Companion Emblem" className="w-full h-full object-cover" />
+              <img src={appLogo} alt="The Believer’s Companion Emblem" className="w-full h-full object-cover" />
             </div>
           </div>
         </div>

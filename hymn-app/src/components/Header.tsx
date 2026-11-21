@@ -10,6 +10,7 @@ import {
   Home,
 } from 'lucide-react';
 import type { Hymn, AppViewTab, AppSettings } from '../types/hymn';
+import appLogo from '../assets/app-icon.png';
 
 interface HeaderProps {
   currentMainTab: AppViewTab;
@@ -200,7 +201,7 @@ export const Header: React.FC<HeaderProps> = ({
           className="flex items-center gap-2.5 text-left cursor-pointer group focus:outline-hidden"
         >
           <img
-            src="/app-icon.png"
+            src={appLogo}
             alt="Psalms and Hymns Logo"
             className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg object-cover shadow-xs border border-[var(--border-subtle)]"
           />
