@@ -367,6 +367,13 @@ export const App: React.FC = () => {
               onBack={backToList}
               settings={settings}
               onUpdateSettings={handleUpdateSettings}
+              onOpenBibleVerse={(book, chapter, verse) => {
+                localStorage.setItem('tbc_bible_book', book);
+                localStorage.setItem('tbc_bible_chapter', chapter.toString());
+                if (verse) localStorage.setItem('tbc_bible_target_verse', verse.toString());
+                backToList();
+                setCurrentMainTab('bible');
+              }}
             />
           ) : currentHymn ? (
             /* If reading a Hymn (Screen 2 in Screenshot) */
@@ -451,9 +458,10 @@ export const App: React.FC = () => {
               {currentMainTab === 'anchor' && (
                 <AnchorView
                   initialReference={scriptureInitialRef}
-                  onOpenBibleVerse={(book, chapter) => {
+                  onOpenBibleVerse={(book, chapter, verse) => {
                     localStorage.setItem('tbc_bible_book', book);
                     localStorage.setItem('tbc_bible_chapter', chapter.toString());
+                    if (verse) localStorage.setItem('tbc_bible_target_verse', verse.toString());
                     backToList();
                     setCurrentMainTab('bible');
                   }}
@@ -485,9 +493,10 @@ export const App: React.FC = () => {
                     clearHistory();
                     setHistory([]);
                   }}
-                  onOpenBibleVerse={(book, chapter) => {
+                  onOpenBibleVerse={(book, chapter, verse) => {
                     localStorage.setItem('tbc_bible_book', book);
                     localStorage.setItem('tbc_bible_chapter', chapter.toString());
+                    if (verse) localStorage.setItem('tbc_bible_target_verse', verse.toString());
                     backToList();
                     setCurrentMainTab('bible');
                   }}

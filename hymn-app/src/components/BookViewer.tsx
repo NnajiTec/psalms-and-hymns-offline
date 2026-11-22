@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Bookmark, ArrowLeft, Copy, Check } from 'lucide-react';
 import type { AppSettings } from '../types/hymn';
 import type { Book, Chapter } from '../types/library';
+import { ScriptureText } from './ScriptureText';
+import { VersePreviewPopover } from './VersePreviewPopover';
 
 interface BookViewerProps {
   book: Book;
@@ -11,6 +13,7 @@ interface BookViewerProps {
   onUpdateSettings: (newSettings: Partial<AppSettings>) => void;
   isDownloaded?: boolean;
   onToggleDownload?: () => void;
+  onOpenBibleVerse?: (book: string, chapter: number, verse?: number) => void;
 }
 
 export const BookViewer: React.FC<BookViewerProps> = ({
@@ -21,6 +24,7 @@ export const BookViewer: React.FC<BookViewerProps> = ({
   onUpdateSettings,
   isDownloaded,
   onToggleDownload,
+  onOpenBibleVerse,
 }) => {
   const [activeChapterIndex, setActiveChapterIndex] = useState<number>(() => {
     if (!initialChapterId) return 0;
@@ -29,6 +33,7 @@ export const BookViewer: React.FC<BookViewerProps> = ({
   });
 
   const [copied, setCopied] = useState(false);
+  const [popoverReference, setPopoverReference] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const currentChapter: Chapter | undefined = book.chapters[activeChapterIndex] || book.chapters[0];
@@ -154,10 +159,29 @@ export const BookViewer: React.FC<BookViewerProps> = ({
                   : '1.65',
             }}
           >
-            {currentChapter?.content}
+            {currentChapter?.content ? (
+              <ScriptureText
+                text={currentChapter.content}
+                onSelectScripture={(ref) => setPopoverReference(ref)}
+              />
+            ) : null}
           </div>
         </div>
       </main>
+
+      {/* Floating Scripture Preview Popover (matching Emmaus Bible mobile screenshot) */}
+      {popoverReference && (
+        <VersePreviewPopover
+          reference={popoverReference}
+          onClose={() => setPopoverReference(null)}
+          onExpandToBible={(bookName, ch, v) => {
+            setPopoverReference(null);
+            if (onOpenBibleVerse) {
+              onOpenBibleVerse(bookName, ch, v);
+            }
+          }}
+        />
+      )}
 
       {/* Floating Bottom Navigation Controller */}
       <footer className="fixed bottom-6 inset-x-0 z-40 flex justify-center pointer-events-none px-4 select-none">

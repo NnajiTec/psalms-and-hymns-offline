@@ -652,3 +652,55 @@ export async function isVerseBookmarked(book: string, chapter: number, verse: nu
     return false;
   }
 }
+
+export interface ScriptureLookupResult {
+  reference: string;
+  book: string;
+  chapter: number;
+  startVerse?: number;
+  endVerse?: number;
+  verses: { verseNum: number; text: string }[];
+  formattedText: string;
+}
+
+export async function lookupScriptureText(
+  refString: string,
+  versionId = 'kjv'
+): Promise<ScriptureLookupResult | null> {
+  const parsed = parseReference(refString);
+  if (!parsed || !parsed.valid) return null;
+
+  const allChapterVerses = await getChapterVerses(versionId, parsed.book, parsed.chapter);
+  if (!allChapterVerses || allChapterVerses.length === 0) return null;
+
+  const start = parsed.verse ? Math.max(1, Math.min(parsed.verse, allChapterVerses.length)) : 1;
+  const end = parsed.endVerse 
+    ? Math.min(allChapterVerses.length, Math.max(start, parsed.endVerse))
+    : (parsed.verse ? start : Math.min(allChapterVerses.length, 5));
+
+  const selectedVerses: { verseNum: number; text: string }[] = [];
+  for (let v = start; v <= end; v++) {
+    const text = allChapterVerses[v - 1];
+    if (text) {
+      selectedVerses.push({ verseNum: v, text });
+    }
+  }
+
+  const formattedText = selectedVerses.map((v) => v.text).join(' ');
+
+  const referenceFormatted = parsed.verse
+    ? (parsed.endVerse && parsed.endVerse !== parsed.verse
+        ? `${parsed.book} ${parsed.chapter}:${parsed.verse}-${parsed.endVerse}`
+        : `${parsed.book} ${parsed.chapter}:${parsed.verse}`)
+    : `${parsed.book} ${parsed.chapter}`;
+
+  return {
+    reference: referenceFormatted,
+    book: parsed.book,
+    chapter: parsed.chapter,
+    startVerse: parsed.verse,
+    endVerse: parsed.endVerse,
+    verses: selectedVerses,
+    formattedText,
+  };
+}

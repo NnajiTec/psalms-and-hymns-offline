@@ -45,7 +45,14 @@ export const BibleView: React.FC<BibleViewProps> = ({ settings }) => {
   const [currentVersion, setCurrentVersion] = useState<string>(() => {
     return localStorage.getItem('tbc_bible_version') || 'kjv';
   });
-  const [targetVerse, setTargetVerse] = useState<number | null>(null);
+  const [targetVerse, setTargetVerse] = useState<number | null>(() => {
+    const saved = localStorage.getItem('tbc_bible_target_verse');
+    if (saved) {
+      localStorage.removeItem('tbc_bible_target_verse');
+      return parseInt(saved, 10);
+    }
+    return null;
+  });
 
   const [verses, setVerses] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
