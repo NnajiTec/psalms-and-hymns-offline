@@ -219,7 +219,7 @@ export const AnchorView: React.FC<AnchorViewProps> = ({
               </h1>
             </div>
             <p className="text-[10.5px] sm:text-[11px] text-dim truncate font-sans">
-              Emmaus Dual-Window Workstation • Interactive Scripture Links
+              Dual-Window Study Workstation • Interactive Scripture Links
             </p>
           </div>
         </div>
@@ -249,8 +249,8 @@ export const AnchorView: React.FC<AnchorViewProps> = ({
               }`}
             >
               <GraduationCap size={13} />
-              <span className="hidden sm:inline">Emmaus Studies</span>
-              <span className="sm:hidden">Studies</span>
+              <span className="hidden sm:inline">Bible Lessons</span>
+              <span className="sm:hidden">Lessons</span>
             </button>
           </div>
 

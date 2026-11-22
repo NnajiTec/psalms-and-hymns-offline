@@ -131,7 +131,7 @@ export const LibraryView: React.FC<LibraryViewProps> = ({
           <div className="flex items-center justify-between mb-2">
             <div>
               <h1 className="text-xl sm:text-2xl font-serif font-extrabold text-main tracking-tight">
-                Emmaus Study Courses & Library
+                Bible Lessons &amp; Library
               </h1>
               <p className="text-xs sm:text-sm text-dim">
                 Systematic courses, doctrinal literature &amp; biblical studies
@@ -169,7 +169,7 @@ export const LibraryView: React.FC<LibraryViewProps> = ({
             }`}
           >
             <GraduationCap size={15} />
-            <span>Study Courses ({bibleStudySeries.length})</span>
+            <span>Bible Lessons ({bibleStudySeries.length})</span>
           </button>
 
           <button
@@ -341,7 +341,7 @@ export const LibraryView: React.FC<LibraryViewProps> = ({
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-xs font-bold uppercase tracking-wider text-gold flex items-center gap-1.5 font-sans">
                         <CheckCircle2 size={15} className="text-gold" />
-                        Emmaus Self-Check Review
+                        Lesson Self-Check Review
                       </span>
                       <button
                         onClick={() => setActiveQuizLessonId(null)}

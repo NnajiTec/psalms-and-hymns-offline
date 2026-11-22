@@ -292,7 +292,7 @@ export const App: React.FC = () => {
 
   return (
     <div className="h-screen h-[100dvh] flex overflow-hidden app-bg text-main font-sans transition-colors duration-200">
-      {/* Desktop & Mobile Slide-Over Emmaus Sidebar */}
+      {/* Desktop & Mobile Slide-Over Navigation Sidebar */}
       {!isPresentationMode && !currentHymn && !currentBook && (
         <Sidebar
           currentTab={currentMainTab}
@@ -513,7 +513,7 @@ export const App: React.FC = () => {
                 />
               )}
 
-              {/* 5. Emmaus Study Courses & Library */}
+              {/* 5. Bible Lessons & Library */}
               {currentMainTab === 'library' && (
                 <LibraryView
                   onOpenBook={openBookInReader}
